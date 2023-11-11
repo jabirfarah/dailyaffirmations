@@ -14,17 +14,16 @@ const AffirmationFetch = () => {
 
     useEffect(() => {
         const something = async () => {
-
             const res = await fetch('https://www.affirmations.dev/');
             const json = await res.json();
             const jsonParse = await JSON.parse(JSON.stringify(json))
-            console.log(jsonParse)
-            setAffirmation(jsonParse.affirmation)
+            setAffirmation(jsonParse.affirmation);
         }
        something();
     }, [])
-    
-    
+    console.log(affirmation);
+
+
   return (
     <Text>{affirmation}</Text>
   )
