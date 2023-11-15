@@ -1,31 +1,64 @@
 import { StatusBar } from 'expo-status-bar';
-import { ImageBackground, StyleSheet, Text, View, Button, ScrollView, SafeAreaView } from 'react-native';
+import { ImageBackground, StyleSheet, Text, ScrollView, SafeAreaView } from 'react-native';
 import AffirmationFetch from './affirmationFetch';
 import { Link } from 'expo-router';
 
+import Animated, {
+  useSharedValue,
+  withTiming,
+  useAnimatedStyle,
+  Easing,
+} from 'react-native-reanimated';
+import { View, Button } from 'react-native';
+import React from 'react';
 
+function AnimatedStyleUpdateExample(props) {
+  const randomWidth = useSharedValue(10);
+
+  const config = {
+    duration: 500,
+    easing: Easing.bezier(0.5, 0.01, 0, 1),
+  };
+
+  const style = useAnimatedStyle(() => {
+    return {
+      width: withTiming(randomWidth.value, config),
+    };
+  });
+
+  return (
+    <View
+      style={{
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        flexDirection: 'column',
+      }}>
+      <Animated.View
+        style={[{ width: 100, height: 80, backgroundColor: 'black', margin: 30 }, style]}
+      />
+      <Button
+        title="toggle"
+        onPress={() => {
+          randomWidth.value = Math.random() * 350;
+        }}
+      />
+    </View>
+  );
+}
  function App() {
   const image = {uri: "https://external-content.duckduckgo.com/iu/?u=https://wallpaperaccess.com/full/1155299.png&f=1&nofb=1&ipt=0be5032c3fda98333cb1b4a215856ea09189f5f2299878ee30507c33165b3839&ipo=images"}
   
+
   return (
-    <SafeAreaView style={styles.container}>
-      <ScrollView style={styles.scrollView}>
-        <ImageBackground source={image} style={styles.image}>
-          <Text style={styles.text}>
-            <AffirmationFetch/>
-          </Text>
-          <Text style={styles.buttons}>
-            <Button title="❤️"/>
-            <Button title="🔖"/>
-            <Button title="📥"/>
-          </Text>
-          <Text>
-          <Link href={""} isReady="true">GO TO THE SETTINGS PAGE</Link>
-        </Text>
-        <StatusBar style="auto" />
-        </ImageBackground>
-      </ScrollView>
-    </SafeAreaView>
+    <>
+    <View>
+{/* Put in carousel */}
+      <AffirmationFetch />
+      
+    </View>
+    {AnimatedStyleUpdateExample}
+    </>
   );
 }
 
@@ -46,7 +79,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   text: {
-    color: 'white',
+    color: 'black',
     fontSize: 29,
     fontWeight: 'bold',
     textAlign: 'center',
