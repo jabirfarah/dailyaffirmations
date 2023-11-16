@@ -12,6 +12,8 @@ const AffirmationFetch = () => {
     const midnight = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1);
     console.log(midnight)
 
+
+    
     useEffect(() => {
         const something = async () => {
             const res = await fetch('https://www.affirmations.dev/');

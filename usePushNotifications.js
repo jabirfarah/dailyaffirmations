@@ -1,94 +1,57 @@
-import { useState, useEffect, useRef } from "react";
+import React from 'react';
+import { View, StyleSheet, Text } from 'react-native';
+import PagerView from 'react-native-pager-view';
+import Animated, { useHandler, useEvent } from 'react-native-reanimated';
 
-import * as Device from 'expo-device'
-import * as Notifications from 'expo-notifications';
+const AnimatedPager = Animated.createAnimatedComponent(PagerView);
 
-import * as Constants from 'expo-constants';
+export function usePagerScrollHandler(handlers, dependencies) {
+  const { context, doDependenciesDiffer } = useHandler(handlers, dependencies);
+  const subscribeForEvents = ['onPageScroll'];
 
-import { Platform } from "react-native";
-
-export const useNotification = () => {
-    Notifications.setNotificationHandler({
-         handleNotification: async () => ({
-            shouldPlaySound: true,
-            shouldShowAlert: true,
-            shouldSetBadge: false,
-         })
-    })
-    
-    const [expoPushToken, setExpoPushToken] = useState()
-    const [notification, setNotification] = useState()
-
-    const notificationListener = useRef()
-    const responseListener = useRef() 
-
-    async function registerForPushNotificationsAsync() {
-        let token;
-        if (Device.isDevice) {
-            const {status: existingStatus} = await Notifications.getPermissionsAsync()
-            let finalStatus = existingStatus;
-
-            if (existingStatus !== 'granted') {
-                const {status} = await Notifications.requestPermissionsAsync()
-                finalStatus = status
-            } 
-
-            if (finalStatus !== 'granted') {
-                alert('Failed to get push token for push notification!')
-                return
-            } 
-
-        token = (await Notifications.getExpoPushTokenAsync({
-            projectId: Constants.expoConfig?.extra?.eas.projectId,
-        }))
-      
-        
-        
-        } else {
-            alert("You must use a physical device to receive push notifications")
-        }
-        
-        if (Platform.OS === 'android') {
-            Notifications.setNotificationChannelAsync('default', {
-                name: 'default',
-                importance: Notifications.AndroidImportance.MAX,
-                vibrationPattern: [0, 250, 250, 250],
-                lightColor: '#FF231F7C',
-
-        });
-         
-        return token;
-    }
-
-    useEffect(() => {
-        registerForPushNotificationsAsync().then(token => {
-            setExpoPushToken(token)
-        })
-        
-        notificationListener.current = Notifications.addNotificationReceivedListener((notification) => {
-            setNotification(notification);
-        })
-
-        responseListener.current = Notifications.addNotificationResponseReceivedListener((response) => {
-            console.log(response)
-        
-        })
-
-        return () => {
-            Notifications.removeNotificationSubscription(
-                notificationListener.current
-
-                )
-
-            Notifications.removeNotificationSubscription(
-                responseListener.current
-            )
-        }
-    },[])
-        return (
-            expoPushToken,
-            notification
-        )
-    }
-
+  return useEvent<any>(
+    (event) => {
+      'worklet';
+      const { onPageScroll } = handlers;
+      if (onPageScroll && event.eventName.endsWith('onPageScroll')) {
+        onPageScroll(event, context);
+      }
+    },
+    subscribeForEvents,
+    doDependenciesDiffer
+  );
 }
+
+export default () => {
+  const handler = usePagerScrollHandler({
+    onPageScroll: (e) => {
+      'worklet';
+      console.log(e.offset, e.position);
+    },
+  });
+
+  return (
+    <AnimatedPager
+      testID={'pager-view'}
+      style={styles.pagerView}
+      initialPage={0}
+      onPageScroll={handler}
+    >
+      <View testID={'1'} key="1">
+        <Text>First page</Text>
+      </View>
+      <View testID={'2'} key="2">
+        <Text>Second page</Text>
+      </View>
+      <View testID={'3'} key="3">
+        <Text>Third page</Text>
+      </View>
+    </AnimatedPager>
+  );
+};
+
+const styles = StyleSheet.create({
+  pagerView: {
+    flex: 1,
+  },
+});
