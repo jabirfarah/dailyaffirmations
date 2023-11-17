@@ -12,15 +12,14 @@ import MyPager from './MyPager';
 function App() {
   const image = { uri: "https://external-content.duckduckgo.com/iu/?u=https://wallpaperaccess.com/full/1155299.png&f=1&nofb=1&ipt=0be5032c3fda98333cb1b4a215856ea09189f5f2299878ee30507c33165b3839&ipo=images" };
   
-
+  
   return (
     <>
-      <View
+      <ImageBackground source={image}
         style={styles.container}
       >
-        <AffirmationFetch/>
-        <MyPager/>
-      </View>
+        <MyPager style={styles.PagerView}/>
+      </ImageBackground>
     </>
   );
 }
@@ -30,6 +29,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     paddingTop: StatusBar.currentHeight,
+    
   },
  
   scrollView: {
@@ -41,6 +41,7 @@ const styles = StyleSheet.create({
     resizeMode: 'cover',
     justifyContent: 'center',
   },
+  
   text: {
     color: 'black',
     fontSize: 29,
