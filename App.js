@@ -6,20 +6,22 @@ import { Link } from 'expo-router';
 import Animated, { useSharedValue, withTiming, useAnimatedStyle, Easing, useHandler, useEvent } from 'react-native-reanimated';
 import PagerView from 'react-native-pager-view';
 import MyPager from './MyPager';
-
-
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import BottomSheet from './components/BottomSheet';
 
 function App() {
   const image = { uri: "https://external-content.duckduckgo.com/iu/?u=https://wallpaperaccess.com/full/1155299.png&f=1&nofb=1&ipt=0be5032c3fda98333cb1b4a215856ea09189f5f2299878ee30507c33165b3839&ipo=images" };
-  
-  
+   
   return (
     <>
-      <ImageBackground source={image}
-        style={styles.container}
-      >
-        <MyPager style={styles.PagerView}/>
-      </ImageBackground>
+    <GestureHandlerRootView style={{flex: 1 }}>
+        <ImageBackground source={image}
+          style={styles.container}
+        >
+          <MyPager style={styles.PagerView}/>
+          <BottomSheet/>
+        </ImageBackground>
+      </GestureHandlerRootView>
     </>
   );
 }

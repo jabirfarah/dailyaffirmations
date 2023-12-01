@@ -47,9 +47,7 @@ const MyPager = () => {
           });
           if (result.action === Share.sharedAction) {
               if (result.activityType) {
-                  // shared with activity type of result.activityType
               } else {
-                  // shared
               }
           } else if (result.action === Share.dismissedAction) {
              console.log("dismissed");
@@ -60,7 +58,6 @@ const MyPager = () => {
       }
   }
 
-  // You can make it so that after a certain amount of 
 
   return (
     <View style={{ flex: 1 }}>
@@ -93,7 +90,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   text: {
-    color: 'white',
+    color: 'black',
+    backgroundColor: 'yellow',
     fontSize: 30,
     fontWeight: 'bold',
     textAlign: 'center',
