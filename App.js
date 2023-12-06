@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useCallback, useRef } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { ImageBackground, StyleSheet, Text, ScrollView, SafeAreaView, View, Button } from 'react-native';
+import { ImageBackground, StyleSheet, Text, ScrollView, SafeAreaView, View, Button, TouchableOpacity, Dimensions } from 'react-native';
 import AffirmationFetch from './affirmationFetch';
 import { Link } from 'expo-router';
 import Animated, { useSharedValue, withTiming, useAnimatedStyle, Easing, useHandler, useEvent } from 'react-native-reanimated';
@@ -10,16 +10,32 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import BottomSheet from './components/BottomSheet';
 
 function App() {
+
+  const SCREEN_HEIGHT = Dimensions.get('window').height;
+  const MAX_TRANSLATE_Y = -SCREEN_HEIGHT + 60
   const image = { uri: "https://external-content.duckduckgo.com/iu/?u=https://wallpaperaccess.com/full/1155299.png&f=1&nofb=1&ipt=0be5032c3fda98333cb1b4a215856ea09189f5f2299878ee30507c33165b3839&ipo=images" };
+  const ref = useRef(null)
+  const onPress = useCallback(() => {
+      ref.current.scrollTo(MAX_TRANSLATE_Y)
+    console.log("pressed")
    
+  }, [])
+
   return (
     <>
-    <GestureHandlerRootView style={{flex: 1 }}>
+    <GestureHandlerRootView style={{flex: 1, }}>
         <ImageBackground source={image}
-          style={styles.container}
+          style={styles.container} 
         >
+          <StatusBar style="auto" />
+          
           <MyPager style={styles.PagerView}/>
-          <BottomSheet/>
+          <BottomSheet ref={ref}/>
+          <TouchableOpacity onPress={onPress} style={styles.buttons}>
+            <Text style={{color: "white", textAlign: "center"}}>Settings</Text>
+          </TouchableOpacity>
+            
+     
         </ImageBackground>
       </GestureHandlerRootView>
     </>
@@ -35,13 +51,13 @@ const styles = StyleSheet.create({
   },
  
   scrollView: {
-    backgroundColor: 'pink',
+   
     marginHorizontal: 20,
   },
   image: {
     flex: 1,
     resizeMode: 'cover',
-    justifyContent: 'center',
+    
   },
   
   text: {
@@ -52,13 +68,17 @@ const styles = StyleSheet.create({
     padding: 30,
   },
   buttons: {
-    flexDirection: 'column',
-    justifyContent: "flex-end",
+    marginLeft: '75%',
+    marginBottom: '10%',
+    height: 70,
+    
+    justifyContent: 'center',
+    aspectRatio: 1,
+    backgroundColor: "gray",
+    borderRadius: 25,
+    
     borderWidth: 2,
-    alignContent: "center",
-    alignItems: "center",
-    margin: "auto",
-    padding: "auto"
+   
   },
 });
 
