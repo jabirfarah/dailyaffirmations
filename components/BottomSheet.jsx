@@ -10,17 +10,20 @@ const MAX_TRANSLATE_Y = -SCREEN_HEIGHT + 50;
 const BottomSheet = React.forwardRef( ({}, ref) => {
 
     const translateY = useSharedValue(0);
-
     const context = useSharedValue({ y: 0 }); 
-
+    const active = useSharedValue(false); 
 
     const scrollTo = useCallback((destination) => {
         'worklet';
+        active.value = destination !== 0;
         translateY.value = withTiming(destination, {duration: 500})
     
     });
-    
-    useImperativeHandle(ref, () => ({scrollTo}), [scrollTo])
+     
+    const isActive = useCallback(()=> {
+         return active.value
+    })
+    useImperativeHandle(ref, () => ({scrollTo, isActive}), [scrollTo, isActive])
  
     const gesture = Gesture.Pan()
     .onStart(() => {
@@ -28,7 +31,6 @@ const BottomSheet = React.forwardRef( ({}, ref) => {
     }).onUpdate((event) => {
         translateY.value = event.translationY + context.value.y;
         translateY.value = Math.max(translateY.value, MAX_TRANSLATE_Y  );
-
         console.log(translateY.value)
     }).onEnd(() => {
         if (translateY.value > -SCREEN_HEIGHT / 3) {

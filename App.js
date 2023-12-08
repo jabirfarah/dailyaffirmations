@@ -16,9 +16,13 @@ function App() {
   const image = { uri: "https://external-content.duckduckgo.com/iu/?u=https://wallpaperaccess.com/full/1155299.png&f=1&nofb=1&ipt=0be5032c3fda98333cb1b4a215856ea09189f5f2299878ee30507c33165b3839&ipo=images" };
   const ref = useRef(null)
   const onPress = useCallback(() => {
-      ref.current.scrollTo(MAX_TRANSLATE_Y)
+      const isActive = ref.current.isActive();
+      if(isActive) {
+        ref.current.scrollTo(0);
+      } else {
+        ref.current.scrollTo(-200);
+      }
     console.log("pressed")
-   
   }, [])
 
   return (
