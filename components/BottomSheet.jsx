@@ -16,9 +16,9 @@ const BottomSheet = React.forwardRef( ({}, ref) => {
     const scrollTo = useCallback((destination) => {
         'worklet';
         active.value = destination !== 0;
-        translateY.value = withTiming(destination, {duration: 500})
-    
+        translateY.value = withTiming(destination, {duration: 500});
     });
+     
      
     const isActive = useCallback(()=> {
          return active.value
@@ -30,7 +30,7 @@ const BottomSheet = React.forwardRef( ({}, ref) => {
         context.value = { y: translateY.value }; 
     }).onUpdate((event) => {
         translateY.value = event.translationY + context.value.y;
-        translateY.value = Math.max(translateY.value, MAX_TRANSLATE_Y  );
+        translateY.value = Math.max(translateY.value, MAX_TRANSLATE_Y);
         console.log(translateY.value)
     }).onEnd(() => {
         if (translateY.value > -SCREEN_HEIGHT / 3) {
@@ -58,16 +58,13 @@ const BottomSheet = React.forwardRef( ({}, ref) => {
          } 
     });
  
-    useEffect(() => {
-        scrollTo(-SCREEN_HEIGHT/3)
-    }, [])
+
 
   return ( 
     <>
          <GestureDetector gesture={gesture}>
             <Animated.View style={[styles.bottomSheetContainer, rBottomSheetStyle ]}>
                 <View style={styles.line}/>
-
             </Animated.View>
         </GestureDetector>
        

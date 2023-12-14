@@ -20,7 +20,7 @@ function App() {
       if(isActive) {
         ref.current.scrollTo(0);
       } else {
-        ref.current.scrollTo(-200);
+        ref.current.scrollTo(MAX_TRANSLATE_Y + 20);
       }
     console.log("pressed")
   }, [])
@@ -38,8 +38,7 @@ function App() {
           <TouchableOpacity onPress={onPress} style={styles.buttons}>
             <Text style={{color: "white", textAlign: "center"}}>Settings</Text>
           </TouchableOpacity>
-            
-     
+          
         </ImageBackground>
       </GestureHandlerRootView>
     </>
