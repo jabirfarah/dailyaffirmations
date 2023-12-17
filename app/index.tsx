@@ -27,7 +27,6 @@ export default function Home() {
           another.
         </Paragraph>
       </YStack>
-
       <YStack space="$2.5">
         <Button onPress={() => router.push("/users/testuser")}>
           Go to user page
