@@ -6,9 +6,12 @@ import {
   ListItem,
   Paragraph,
   Separator,
+  Sheet,
   YGroup,
-  YStack
+  YStack,
+  Text,
 } from "tamagui";
+import PagerView from "react-native-pager-view";
 
 import { MyStack } from "../components/MyStack";
 
@@ -21,13 +24,27 @@ export default function Home() {
         space="$4"
         maxWidth={600}
       >
-        <H1 textAlign="center">Welcome to Tamagui.</H1>
+        <H1 textAlign="center">Welcome to Daily Affirmations!</H1>
         <Paragraph textAlign="center">
-          Here&apos;s a basic starter to show navigating from one screen to
-          another.
+        <Sheet></Sheet>
         </Paragraph>
+        
       </YStack>
-
+      <PagerView initialPage={0} orientation={"vertical"} 
+      style={{
+        flex: 1,
+      }}
+      >
+        <YStack key="1">
+          <Text >Page 1.</Text>
+        </YStack>
+        <YStack key="2">
+          <Text >Page 2.</Text>
+        </YStack>
+        <YStack key="3">
+          <Text >Page 3.</Text>
+        </YStack>
+      </PagerView>
       <YStack space="$2.5">
         <Button onPress={() => router.push("/users/testuser")}>
           Go to user page
