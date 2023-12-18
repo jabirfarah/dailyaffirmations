@@ -1,8 +1,5 @@
 import { Github, Twitter } from "@tamagui/lucide-icons";
 import { Link, useRouter } from "expo-router";
-
-
-import React from "react";
 import {
   Button,
   H1,
@@ -13,8 +10,6 @@ import {
   YGroup,
   YStack,
   Text,
-  View,
-  Stack
 } from "tamagui";
 import PagerView from "react-native-pager-view";
 
@@ -33,15 +28,7 @@ export default function Home() {
         <Paragraph textAlign="center">
         <Sheet></Sheet>
         </Paragraph>
-        <PagerView initialPage={0} orientation={"vertical"}>
-        <Stack style={{ backgroundColor: 'red' }}>
-          <H1>Page 1</H1>
-        </Stack>
-        <Stack style={{ backgroundColor: 'yellow' }}>
-         <H1>Page 2</H1>
-        </Stack>
-      
-       </PagerView>
+        
       </YStack>
       <PagerView initialPage={0} orientation={"vertical"} 
       style={{
