@@ -1,14 +1,22 @@
 import { Github, Twitter } from "@tamagui/lucide-icons";
 import { Link, useRouter } from "expo-router";
+
+
+import React from "react";
 import {
   Button,
   H1,
   ListItem,
   Paragraph,
   Separator,
+  Sheet,
   YGroup,
-  YStack
+  YStack,
+  Text,
+  View,
+  Stack
 } from "tamagui";
+import PagerView from "react-native-pager-view";
 
 import { MyStack } from "../components/MyStack";
 
@@ -21,12 +29,35 @@ export default function Home() {
         space="$4"
         maxWidth={600}
       >
-        <H1 textAlign="center">Welcome to Tamagui.</H1>
+        <H1 textAlign="center">Welcome to Daily Affirmations!</H1>
         <Paragraph textAlign="center">
-          Here&apos;s a basic starter to show navigating from one screen to
-          another.
+        <Sheet></Sheet>
         </Paragraph>
+        <PagerView initialPage={0} orientation={"vertical"}>
+        <Stack style={{ backgroundColor: 'red' }}>
+          <H1>Page 1</H1>
+        </Stack>
+        <Stack style={{ backgroundColor: 'yellow' }}>
+         <H1>Page 2</H1>
+        </Stack>
+      
+       </PagerView>
       </YStack>
+      <PagerView initialPage={0} orientation={"vertical"} 
+      style={{
+        flex: 1,
+      }}
+      >
+        <YStack key="1">
+          <Text >Page 1.</Text>
+        </YStack>
+        <YStack key="2">
+          <Text >Page 2.</Text>
+        </YStack>
+        <YStack key="3">
+          <Text >Page 3.</Text>
+        </YStack>
+      </PagerView>
       <YStack space="$2.5">
         <Button onPress={() => router.push("/users/testuser")}>
           Go to user page
