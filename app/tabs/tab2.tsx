@@ -16,7 +16,7 @@ export default function Tab2() {
             <Text>SubTab 1</Text>
           </Tabs.Tab>
           <Tabs.Tab value="tab2">
-            <Text>SubTab 2</Text>
+            <Text>Sub Tab 2!!!!!!!!!</Text>
           </Tabs.Tab>
           <Tabs.Tab value="tab3">
             <Text>SubTab 3</Text>
