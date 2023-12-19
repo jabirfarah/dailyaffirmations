@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Tamagui Expo Template
 ###### This is a community template
 
@@ -41,3 +42,8 @@ In this template you get out of the box:
 ### I'm on WSL but my app doesn't connect
 WSL2 runs inside its own container, so it doesn't share the same IPv4 and port status as your host machine, you might need [this](https://gist.github.com/ivopr/64f974e632b7edcbe1f5e58b91e31598)
 
+=======
+# Daily Affirmations
+
+A React Native app that give you a positive affirmation everyday!
+>>>>>>> 619ffba9511cf677e5853ca818877d2a531f97a1
