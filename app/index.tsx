@@ -29,14 +29,9 @@ export default function Home() {
         <Paragraph textAlign="center">
         </Paragraph>
         <PagerView initialPage={0} orientation={"vertical"}>
-        <Stack style={{ backgroundColor: 'red' }}>
-          <H1>Page 1</H1>
-        </Stack>
-        <Stack style={{ backgroundColor: 'yellow' }}>
-         <H1>Page 2</H1>
-        </Stack>
-      
-       </PagerView>
+
+
+        </PagerView>
       </YStack>
       <PagerView initialPage={0} orientation={"vertical"} 
       style={{
@@ -46,19 +41,7 @@ export default function Home() {
       }}
       >
         <YStack key="1">
-          <Text>
-            <AffirmationFetch/>
-            </Text>
-        </YStack>
-        <YStack key="2">
-          <Text>
-            <AffirmationFetch/>
-            </Text>
-        </YStack>
-        <YStack key="3">
-          <Text>
-            <AffirmationFetch/>
-          </Text>
+          <AffirmationFetch />
         </YStack>
       </PagerView>
       <YStack space="$2.5">
